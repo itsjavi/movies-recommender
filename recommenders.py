@@ -31,6 +31,24 @@ def get_movies():
     return pd.read_csv("data/movies-tags.csv")
 
 @st.cache
+def get_movies_with_decade():
+    movies_df = get_movies()
+    df = movies_df.copy()
+    
+    # df['title'] = movies_df['title'].str.extract('(.+?) \(')
+    df['year'] = movies_df['title'].str.extract(' \(([0-9]{4})\)')
+    df['title'] = movies_df['title'].str.replace('( \([0-9]{4}\))', '')
+    df['year'] = df['year'].fillna(0)
+    df['decade'] = (10 * (df['year'].astype(int) // 10)) #.astype(str) + 's'
+    return df
+
+    #decades = pd.unique(movies_df['decade'].dropna())
+    #decades = np.sort(years)
+    #decades
+
+    #movies_df2.loc[movies_df2['year'] == 0]
+    
+@st.cache
 def get_genres():
     return pd.read_csv("data/genres.csv")
 
