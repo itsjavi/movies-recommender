@@ -61,7 +61,7 @@ def get_popular_movies(ratings_df, movies_df, n = 10, min_ratings = 5):
     return popular_movies[popular_movies['rating_count']>=min_ratings].head(n)
 
 
-# get movie index,id tuple from highest ranged
+# get movie index,id tuple from highest ranked
 def get_most_popular_movie(popular_movies):
     mostPopularMovie = popular_movies.head(1)
     mostPopularMovieIdx = mostPopularMovie.index[0]
