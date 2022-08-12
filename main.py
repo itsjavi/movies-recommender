@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import os
+import recommenders as rec
 
 
 title = "WBSFLIX+"
@@ -12,28 +13,13 @@ st.set_page_config(page_title=title, page_icon=icon, layout="wide", initial_side
 st.title(icon + " " + title)
 
 
-@st.cache
-def get_movies():
-    return pd.read_csv("data/movies-tags.csv")
+genres_df = rec.get_genres()
+movies_df = rec.get_movies()
+ratings_df = rec.get_ratings()
 
-@st.cache
-def get_genres():
-    return pd.read_csv("data/genres.csv")
-
-    return genres
-
-@st.cache
-def get_ratings():
-    return pd.read_csv("data/ratings.csv")
-
-@st.cache
-def get_user_ids():
-    return pd.read_csv("data/users.csv")
-
-
-df = get_genres()
-
-df
+## Top movies
+top_movies = rec.get_popular_movies(ratings_df, movies_df)
+top_movies
 
 ## Top movies by year (rating timestamp)
 ## Top movies by genre
