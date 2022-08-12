@@ -27,23 +27,8 @@ peopleById = {
     345: "Martin",
     456: "Vinita"
 }
-    
-# ## Top movies (general):
-# with st.container():
-#     st.header("🎬 Top movies of all time")
-#     top_movies = rec.get_popular_movies(ratings_df, movies_df, 10, 5).reset_index()
-#     top_movies
 
-# ## Top movies by decade
-# with st.container():
-#     st.header("🗓 Top movies by decade")
-#     decades_list = range(2010,1900,-10)
-#     decade = st.slider("Decade", min_value=1900, max_value=2010, step=10, value=2010)
-    
-#     top_movies3 = rec.get_popular_movies(ratings_df, movies_df, total_movies, 5)
-#     top_movies3 = top_movies3[top_movies3['decade'] == decade]
-#     top_movies3 = top_movies3.head(10).reset_index()
-#     top_movies3
+
 
 ## Top movies
 with st.container():
@@ -70,20 +55,6 @@ with st.container():
     if submitted:
         clearFilters = st.button("Clear")
     
-#     with st.expander("Show Filters"):
-#         col1, col2 = st.columns([1,1])
-
-#         with col1:
-#             genre = st.selectbox("🕵️‍♀️ Genre", genres_list)
-
-#         with col2:
-#             decade = st.slider("🗓 Decade", min_value=1900, max_value=2010, step=10, value=2010)
-        
-#         applyFilters = st.button("Apply filters")
-        
-#         if applyFilters:
-#             clearFilters = st.button("Clear Filters")
-    
     movies_by_popularity = rec.get_popular_movies(ratings_df, movies_df, total_movies, 5)
     
     if submitted:
@@ -95,7 +66,8 @@ with st.container():
     
     movies_by_popularity = movies_by_popularity.head(10).reset_index()
     movies_by_popularity
-    
+
+
 ## Item-based recommender
 with st.container():
     st.header("👯 Similar movies")
@@ -126,7 +98,8 @@ with st.container():
             st.warning("No movies found")
         else:
             st.info("Enter a string to search a movie by title and hit ENTER.")
-    
+
+
 ## User-based recommender
 with st.container():
     st.header("🤍 Based on what other users like...")
@@ -143,3 +116,4 @@ with st.container():
             st.info("No movies found")
     else:
         st.info("Select a user profile")
+
