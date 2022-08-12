@@ -59,6 +59,7 @@ def get_popular_movies(ratings_df, movies_df, n = 10, min_ratings = 10):
     popular_movies = (ratings
         .merge(movies_df, on='movieId')
         .sort_values(["rating_count", "rating"], ascending=[False, False])
+                      
     )
     
     return popular_movies[popular_movies['rating_count']>=min_ratings].head(n)
