@@ -25,7 +25,7 @@ total_movies = len(movies_df)
 
 with st.container():
     st.header("🎬 Top movies of all time")
-    top_movies = rec.get_popular_movies(ratings_df, movies_df, 10, 5)
+    top_movies = rec.get_popular_movies(ratings_df, movies_df, 10, 5).reset_index()
     top_movies
 
 ## Top movies by decade
@@ -36,7 +36,7 @@ with st.container():
     
     top_movies3 = rec.get_popular_movies(ratings_df, movies_df, total_movies, 5)
     top_movies3 = top_movies3[top_movies3['decade'] == decade]
-    top_movies3 = top_movies3.head(10)
+    top_movies3 = top_movies3.head(10).reset_index()
     top_movies3
 
 ## Top movies by genre
@@ -52,7 +52,7 @@ with st.container():
     else:
         top_movies2 = rec.get_popular_movies(ratings_df, movies_df, total_movies, 5)
         top_movies2 = top_movies2[top_movies2['genres'].str.contains(pat=r''+genre, case=False)]
-        top_movies2 = top_movies2.head(10)
+        top_movies2 = top_movies2.head(10).reset_index()
         top_movies2
     
 ## Item-based recommender
@@ -78,7 +78,7 @@ with st.container():
 
         if selectedMovieId:
             st.write("Movies similar to '" + foundDict[selectedMovieId] + "':")
-            similar_movies = rec.get_similar_movies(selectedMovieId, ratings_df, movies_df, 10, 15)
+            similar_movies = rec.get_similar_movies(selectedMovieId, ratings_df, movies_df, 10, 15).reset_index()
             similar_movies
     else:
         if len(movieSearchInput) > 0:
@@ -116,7 +116,7 @@ with st.container():
 
     
     if userSelection:
-        found2 = rec.get_user_recommendations(userSelection, ratings_df, movies_df, n = 10)
+        found2 = rec.get_user_recommendations(userSelection, ratings_df, movies_df, n = 10).reset_index()
         
         if len(found2) > 0:
             st.write(f"Recommendations for {peopleById[userSelection]} (ID#{userSelection}):")
