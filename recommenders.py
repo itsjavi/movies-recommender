@@ -2,6 +2,10 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 from sklearn.metrics.pairwise import cosine_similarity
+from imdb import Cinemagoer
+
+# create an instance of the Cinemagoer class
+cine = Cinemagoer()
 
 """
 TODOS:
@@ -157,3 +161,17 @@ def get_user_recommendations(for_user_id, ratings_df, movies_df, n = 10):
     
     return recommendations
 
+
+def get_movies_with_covers(movies_df): # Warning! This API is very slow
+    new_movies_data = movies_df.head(2).copy() # use only 2 for testing it put
+    new_movies_data['imgUrl'] = None
+    columns = new_movies_data.columns
+    
+    for i,row in movies_df.iterrows():
+        if row['imdbId']:
+            mov = cine.get_movie(row['imdbId'])
+            #st.write(mov.keys())
+            new_movies_data.at[i, 'imgUrl'] = mov["cover url"]
+            st.image(mov["cover url"]) # for quick demo purposes
+            
+    return pd.DataFrame(new_movies_data, columns = columns)

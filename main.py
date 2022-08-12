@@ -85,7 +85,7 @@ with st.container():
     if len(foundTopN) > 0:
         foundDict = {}
         for i,found in foundTopN.iterrows():
-            foundDict.update({found['movieId']: found['title']})
+            foundDict.update({found['movieId']: found['title'] + " (" + found['year'] + ")"})
 
         selectedMovieId = st.radio("Select a result", foundDict.keys(), format_func = lambda movieId : foundDict[movieId])
 
@@ -97,17 +97,17 @@ with st.container():
         if len(movieSearchInput) > 0:
             st.warning("No movies found")
         else:
-            st.info("Enter a string to search a movie by title and hit ENTER.")
+            st.info("Write some text to search a movie by title and hit ENTER.")
 
 
 ## User-based recommender
 with st.container():
-    st.header("🤍 Based on what other users like...")
+    st.header("👍 Based on what other users like...")
     userSelection = st.selectbox("Who is watching?", peopleById.keys(), format_func = lambda userId : peopleById[userId])
 
     
     if userSelection > 0:
-        found2 = rec.get_user_recommendations(userSelection, ratings_df, movies_df, n = 10).reset_index()
+        found2 = rec.get_user_recommendations(userSelection, ratings_df, movies_df, n = 2).reset_index()
         
         if len(found2) > 0:
             st.success(f"{peopleById[userSelection]}, here is a list of movies you may like: ")
