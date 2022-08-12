@@ -119,7 +119,7 @@ with st.container():
         found2 = rec.get_user_recommendations(userSelection, ratings_df, movies_df, n = 10).reset_index()
         
         if len(found2) > 0:
-            st.write(f"Recommendations for {peopleById[userSelection]} (ID#{userSelection}):")
+            st.write(f"{peopleById[userSelection]}, here is a list of movies you may like: ")
             found2
         else:
             st.info("No movies found")
