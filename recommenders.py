@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import streamlit as st
+from sklearn.metrics.pairwise import cosine_similarity
 
 """
 TODOS:
@@ -8,6 +9,8 @@ TODOS:
    
  - Add a "year" column to the ratings, based on "timestamp" column, 
    so we can display most popular movies by year.
+   
+ - Extract "year" from the last 6 chars of the movie title "(XXXX)"
    
  - Create functions for linear-regression and Knn algorithms
  
@@ -50,7 +53,7 @@ def get_ratings_means_count(ratings_df):
 
 
 # simple ranking
-def get_popular_movies(ratings_df, movies_df, n = 10, min_ratings = 5):
+def get_popular_movies(ratings_df, movies_df, n = 10, min_ratings = 10):
     ratings = get_ratings_means_count(ratings_df)
     
     popular_movies = (ratings
