@@ -107,7 +107,7 @@ with st.container():
 
     
     if userSelection > 0:
-        found2 = rec.get_user_recommendations(userSelection, ratings_df, movies_df, n = 2).reset_index()
+        found2 = rec.get_user_recommendations(userSelection, ratings_df, movies_df, n = 10).reset_index()
         
         if len(found2) > 0:
             st.success(f"{peopleById[userSelection]}, here is a list of movies you may like: ")
